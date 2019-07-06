@@ -7,14 +7,14 @@ Don't talk anying,Just do it!(别说话，就是干！)
 
 ### Using Kong.Net
 
-```
+``` C#
 Install-Package Kong.Net -Version 0.0.4
 Install-Package Kong.Extensions -Version 0.0.4
 ```
 
 ### Add JSON section to appsettings.json
 
-```
+``` C#
 "kong": {
     "host": "http://10.23.11.1:8001",
     "upstream": {
@@ -67,7 +67,7 @@ The JSON section kong.target.target Is Kong.Net Service Registration , The sexio
 
 ### KongClient Injection To Service container
 
-```
+``` C#
 		// This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -82,7 +82,7 @@ The JSON section kong.target.target Is Kong.Net Service Registration , The sexio
 
 ### Configure Kong Client to Startup
 
-```
+``` C#
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env, KongClient kongClient)
         {
             app.UseKong(Configuration, kongClient);
@@ -98,7 +98,7 @@ The JSON section kong.target.target Is Kong.Net Service Registration , The sexio
 
 ### Custom Kong Client Host:Port
 
-```
+``` C#
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, KongClient kongClient)
         {
