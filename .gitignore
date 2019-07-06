@@ -34,3 +34,12 @@
 /WebApplication1/obj/Debug/netcoreapp2.2
 /WebApplication1/obj
 /.vs/config
+/.vs/Kong.Net/v15
+/examples/Kong.Example/bin/Debug/netcoreapp2.2
+/examples/Kong.Example/obj
+/src/Kong/bin/Debug/netstandard2.0
+/src/Kong/obj
+/src/Kong.Extensions/bin/Debug/netstandard2.0
+/src/Kong.Extensions/obj
+/test/Kong.XUnitTest/bin/Debug/netcoreapp2.2
+/test/Kong.XUnitTest/obj
