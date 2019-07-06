@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Kong.Example": {
+      "commandName": "Project",
+      "commandLineArgs": "--server.urls http://172.16.10.227:5200"
+    }
+  }
+}

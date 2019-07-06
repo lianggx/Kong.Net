@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Kong.Net</AssemblyName>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.0.4</Version>
+    <PackageLicenseUrl>https://github.com/lianggx/Kong.Net/blob/master/LICENSE</PackageLicenseUrl>
+    <Copyright>lianggx@foxmail.com</Copyright>
+    <PackageProjectUrl>https://github.com/lianggx/Kong.Net/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/lianggx/Kong.Net/</RepositoryUrl>
+    <Description>.NET Core Client of the Kong</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+  </ItemGroup>
+
+</Project>
