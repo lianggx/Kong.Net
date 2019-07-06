@@ -69,56 +69,56 @@ The JSON section kong.target.target Is Kong.Net Service Registration , The sexio
 
 ``` C#
 		// This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddSingleton<KongClient>(fat =>
-            {
-                var options = new KongClientOptions(HttpClientFactory.Create(), this.Configuration["kong:host"]);
-                var client = new KongClient(options);
-                return client;
-            });
-        }
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddSingleton<KongClient>(fat =>
+    {
+        var options = new KongClientOptions(HttpClientFactory.Create(), this.Configuration["kong:host"]);
+        var client = new KongClient(options);
+        return client;
+    });
+}
 ```
 
 ### Configure Kong Client to Startup
 
 ``` C#
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env, KongClient kongClient)
-        {
-            app.UseKong(Configuration, kongClient);
+public void Configure(IApplicationBuilder app, IHostingEnvironment env, KongClient kongClient)
+{
+    app.UseKong(Configuration, kongClient);
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+    if (env.IsDevelopment())
+    {
+        app.UseDeveloperExceptionPage();
+    }
 
-            app.UseMvc();
-        }
+    app.UseMvc();
+}
 ```
 
 ### Custom Kong Client Host:Port
 
 ``` C#
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, KongClient kongClient)
-        {
-            UseKong(app, kongClient);
+// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+public void Configure(IApplicationBuilder app, IHostingEnvironment env, KongClient kongClient)
+{
+    UseKong(app, kongClient);
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+    if (env.IsDevelopment())
+    {
+        app.UseDeveloperExceptionPage();
+    }
 
-            app.UseMvc();
-        }
+    app.UseMvc();
+}
 
-        public void UseKong(IApplicationBuilder app, KongClient kongClient)
-        {
-            var upStream = Configuration.GetSection("kong:upstream").Get<UpStream>();
-            var target = Configuration.GetSection("kong:target").Get<TargetInfo>();
-            var uri = new Uri(Configuration["server.urls"]);
-			// This target is your host:port
-            target.Target = uri.Authority;
-            app.UseKong(kongClient, upStream, target);
-        }
+public void UseKong(IApplicationBuilder app, KongClient kongClient)
+{
+    var upStream = Configuration.GetSection("kong:upstream").Get<UpStream>();
+    var target = Configuration.GetSection("kong:target").Get<TargetInfo>();
+    var uri = new Uri(Configuration["server.urls"]);
+	// This target is your host:port
+    target.Target = uri.Authority;
+    app.UseKong(kongClient, upStream, target);
+}
 ```
