@@ -59,7 +59,7 @@ namespace Kong.Example
         /// <param name="context"></param>
         public void OnExecuter(HttpContext context)
         {
-            context.Response.StatusCode = 500;
+            context.Response.StatusCode = 200;
         }
     }
 }
