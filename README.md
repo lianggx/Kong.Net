@@ -3,7 +3,7 @@
 
 ## How to start
 
-Don't talk anying,Just do it!(别说话，就是干！)
+Don't talk anying,Just do it!(卤冒脣碌禄掳拢卢戮脥脢脟赂脡拢隆)
 
 ### Using Kong.Net
 
@@ -125,7 +125,7 @@ public void UseKong(IApplicationBuilder app, KongClient kongClient)
 
 ### Custom HealthChecks
 
-```
+``` C#
 public void UseKong(IApplicationBuilder app, KongClient kongClient)
 {
     var upStream = Configuration.GetSection("kong:upstream").Get<UpStream>();
