@@ -122,3 +122,27 @@ public void UseKong(IApplicationBuilder app, KongClient kongClient)
     app.UseKong(kongClient, upStream, target);
 }
 ```
+
+### Custom HealthChecks
+
+```
+public void UseKong(IApplicationBuilder app, KongClient kongClient)
+{
+    var upStream = Configuration.GetSection("kong:upstream").Get<UpStream>();
+    var target = Configuration.GetSection("kong:target").Get<TargetInfo>();
+    var uri = new Uri(Configuration["server.urls"]);
+    target.Target = uri.Authority;
+
+	// Set parameter onExecuter to Custom HealthChecks
+    app.UseKong(kongClient, upStream, target, OnExecuter);
+}
+
+/// <summary>
+/// Custom HealthChecks
+/// </summary>
+/// <param name="context"></param>
+public void OnExecuter(HttpContext context)
+{
+    context.Response.StatusCode = 500;
+}
+```
