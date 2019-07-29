@@ -3,7 +3,7 @@
 
 ## How to start
 
-Don't talk anything, Just do it!(±ðËµ»°£¬¾ÍÊÇ¸É£¡)
+Don't talk anything, Just do it!
 
 ### Using Kong.Net
 
