@@ -3,7 +3,7 @@
 
 ## How to start
 
-Don't talk anying,Just do it!(别说话，就是干！)
+Don't talk anything, Just do it!
 
 ### Using Kong.Net
 
@@ -120,29 +120,5 @@ public void UseKong(IApplicationBuilder app, KongClient kongClient)
 	// This target is your host:port
     target.Target = uri.Authority;
     app.UseKong(kongClient, upStream, target);
-}
-```
-
-### Custom HealthChecks
-
-```
-public void UseKong(IApplicationBuilder app, KongClient kongClient)
-{
-    var upStream = Configuration.GetSection("kong:upstream").Get<UpStream>();
-    var target = Configuration.GetSection("kong:target").Get<TargetInfo>();
-    var uri = new Uri(Configuration["server.urls"]);
-    target.Target = uri.Authority;
-
-	// Set parameter onExecuter to Custom HealthChecks
-    app.UseKong(kongClient, upStream, target, OnExecuter);
-}
-
-/// <summary>
-/// Custom HealthChecks
-/// </summary>
-/// <param name="context"></param>
-public void OnExecuter(HttpContext context)
-{
-    context.Response.StatusCode = 500;
 }
 ```
