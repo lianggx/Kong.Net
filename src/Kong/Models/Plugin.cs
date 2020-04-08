@@ -1,7 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Kong.Models
 {
@@ -53,6 +51,6 @@ namespace Kong.Models
 
     public class PluginSchema
     {
-        public JArray Fields { get; set; }
+        public System.Text.Json.JsonDocument Fields { get; set; }
     }
 }

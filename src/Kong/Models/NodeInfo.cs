@@ -1,8 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Newtonsoft.Json;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Kong.Models
 {
@@ -13,8 +12,8 @@ namespace Kong.Models
         public string Lua_version { get; set; }
         public NodePlugin Plugins { get; set; }
         public string Tagline { get; set; }
-        public JToken Configuration { get; set; }
-        public JToken Prng_seeds { get; set; }
+        public JsonElement Configuration { get; set; }
+        public JsonElement Prng_seeds { get; set; }
 
         public NodeTimers Timers { get; set; }
         public class NodeTimers
@@ -33,62 +32,62 @@ namespace Kong.Models
 
     public class NodePluginAvailable
     {
-        [JsonProperty("correlation-id")]
+        [JsonPropertyName("correlation-id")]
         public bool CorrelationId { get; set; }
-        [JsonProperty("pre-function")]
+        [JsonPropertyName("pre-function")]
         public bool PreFunction { get; set; }
         public bool Cors { get; set; }
-        [JsonProperty("ldap-auth")]
+        [JsonPropertyName("ldap-auth")]
         public bool LdapAuth { get; set; }
         public bool Loggly { get; set; }
-        [JsonProperty("hmac-auth")]
+        [JsonPropertyName("hmac-auth")]
         public bool HmacAuth { get; set; }
         public bool Zipkin { get; set; }
-        [JsonProperty("request-size-limiting")]
+        [JsonPropertyName("request-size-limiting")]
         public bool RequestSizeLimiting { get; set; }
-        [JsonProperty("azure-functions")]
+        [JsonPropertyName("azure-functions")]
         public bool AzureFunctions { get; set; }
-        [JsonProperty("request-transformer")]
+        [JsonPropertyName("request-transformer")]
         public bool RequestTansformer { get; set; }
         public bool Oauth2 { get; set; }
-        [JsonProperty("response-transformer")]
+        [JsonPropertyName("response-transformer")]
         public bool ResponseTransformer { get; set; }
-        [JsonProperty("ip-restriction")]
+        [JsonPropertyName("ip-restriction")]
         public bool IpRestriction { get; set; }
         public bool Statsd { get; set; }
         public bool Jwt { get; set; }
-        [JsonProperty("proxy-cache")]
+        [JsonPropertyName("proxy-cache")]
         public bool ProxyCache { get; set; }
-        [JsonProperty("basic-auth")]
+        [JsonPropertyName("basic-auth")]
         public bool BasicAuth { get; set; }
-        [JsonProperty("key-auth")]
+        [JsonPropertyName("key-auth")]
         public bool KeyAuth { get; set; }
-        [JsonProperty("http-log")]
+        [JsonPropertyName("http-log")]
         public bool HttpLog { get; set; }
-        [JsonProperty("datadog")]
+        [JsonPropertyName("datadog")]
         public bool Datadog { get; set; }
-        [JsonProperty("tcp-log")]
+        [JsonPropertyName("tcp-log")]
         public bool TcpLog { get; set; }
-        [JsonProperty("post-function")]
+        [JsonPropertyName("post-function")]
         public bool PostFunction { get; set; }
         public bool Prometheus { get; set; }
         public bool Acl { get; set; }
-        [JsonProperty("kubernetes-sidecar-injector")]
+        [JsonPropertyName("kubernetes-sidecar-injector")]
         public bool KubernetesSidecarInjector { get; set; }
         public bool SysLog { get; set; }
-        [JsonProperty("file-log")]
+        [JsonPropertyName("file-log")]
         public bool FileLog { get; set; }
-        [JsonProperty("udp-log")]
+        [JsonPropertyName("udp-log")]
         public bool UdpLog { get; set; }
-        [JsonProperty("response-ratelimiting")]
+        [JsonPropertyName("response-ratelimiting")]
         public bool ResponseRatelimiting { get; set; }
-        [JsonProperty("aws-lambda")]
+        [JsonPropertyName("aws-lambda")]
         public bool AwsLambda { get; set; }
-        [JsonProperty("bot-detection")]
+        [JsonPropertyName("bot-detection")]
         public bool BotDetection { get; set; }
-        [JsonProperty("rate-limiting")]
+        [JsonPropertyName("rate-limiting")]
         public bool RateLimiting { get; set; }
-        [JsonProperty("request-termination")]
+        [JsonPropertyName("request-termination")]
         public bool RequestTermination { get; set; }
     }
 

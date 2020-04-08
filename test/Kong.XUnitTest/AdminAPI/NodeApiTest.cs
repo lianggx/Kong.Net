@@ -1,9 +1,4 @@
-﻿using Kong.Common;
-using Kong.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Xunit;
 
 namespace Kong.XUnitTest.AdminAPI

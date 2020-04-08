@@ -1,8 +1,6 @@
 ﻿using Kong.Common;
 using Kong.Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Kong.AdminAPI
@@ -115,7 +113,9 @@ namespace Kong.AdminAPI
         /// </summary>
         /// <param name="route">{route name or id}</param>
         /// <returns></returns>
+#pragma warning disable CS1998 // 此异步方法缺少 "await" 运算符，将以同步方式运行。请考虑使用 "await" 运算符等待非阻止的 API 调用，或者使用 "await Task.Run(...)" 在后台线程上执行占用大量 CPU 的工作。
         public async Task<bool> DeleteByRoute(string route)
+#pragma warning restore CS1998 // 此异步方法缺少 "await" 运算符，将以同步方式运行。请考虑使用 "await" 运算符等待非阻止的 API 调用，或者使用 "await Task.Run(...)" 在后台线程上执行占用大量 CPU 的工作。
         {
             throw new NotImplementedException("MethodNotAllowed");
             //var path = string.Format("{0}/{1}/service", RESTfulPath.ROUTES, route);

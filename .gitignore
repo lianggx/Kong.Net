@@ -43,3 +43,8 @@
 /src/Kong.Extensions/obj
 /test/Kong.XUnitTest/bin/Debug/netcoreapp2.2
 /test/Kong.XUnitTest/obj
+/.vs/Kong.Net/v16
+/examples/Kong.Example/bin/Debug/netcoreapp3.1
+/src/Kong/bin/Debug/netstandard2.1
+/src/Kong.Extensions/bin/Debug/netstandard2.1
+/test/Kong.XUnitTest/bin/Debug/netcoreapp3.1

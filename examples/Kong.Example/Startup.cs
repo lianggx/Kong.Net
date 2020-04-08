@@ -28,20 +28,24 @@ namespace Kong.Example
                 var options = new KongClientOptions(HttpClientFactory.Create(), this.Configuration["kong:host"]);
                 return options;
             });
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, KongClient kongClient)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, KongClient kongClient)
         {
             UseKong(app, kongClient);
 
-            if (env.IsDevelopment())
+            if (env.EnvironmentName == Microsoft.Extensions.Hosting.Environments.Development)
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+            app.UseRouting()
+                  .UseEndpoints(endpoints =>
+                  {
+                      endpoints.MapDefaultControllerRoute();
+                  });
         }
 
         public void UseKong(IApplicationBuilder app, KongClient kongClient)

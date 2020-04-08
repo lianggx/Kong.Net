@@ -1,7 +1,6 @@
 ﻿using Kong.Common;
 using Kong.Models;
 using System;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Kong.AdminAPI
@@ -39,7 +38,9 @@ namespace Kong.AdminAPI
         /// <param name="target">{target host:port or id}</param>
         /// <param name="upstream"></param>
         /// <returns></returns>
+#pragma warning disable CS1998 // 此异步方法缺少 "await" 运算符，将以同步方式运行。请考虑使用 "await" 运算符等待非阻止的 API 调用，或者使用 "await Task.Run(...)" 在后台线程上执行占用大量 CPU 的工作。
         public async Task<UpStream> UpdateOrCreate(string target, UpStream upstream)
+#pragma warning restore CS1998 // 此异步方法缺少 "await" 运算符，将以同步方式运行。请考虑使用 "await" 运算符等待非阻止的 API 调用，或者使用 "await Task.Run(...)" 在后台线程上执行占用大量 CPU 的工作。
         {
             throw new NotImplementedException();
             //var path = string.Format("{0}/{1}/upstream", RESTfulPath.TARGETS, target);
@@ -65,7 +66,9 @@ namespace Kong.AdminAPI
         /// <param name="target">{target host:port or id}</param>
         /// <param name="upstream"></param>
         /// <returns></returns>
+#pragma warning disable CS1998 // 此异步方法缺少 "await" 运算符，将以同步方式运行。请考虑使用 "await" 运算符等待非阻止的 API 调用，或者使用 "await Task.Run(...)" 在后台线程上执行占用大量 CPU 的工作。
         public async Task<UpStream> Update(string target, UpStream upstream)
+#pragma warning restore CS1998 // 此异步方法缺少 "await" 运算符，将以同步方式运行。请考虑使用 "await" 运算符等待非阻止的 API 调用，或者使用 "await Task.Run(...)" 在后台线程上执行占用大量 CPU 的工作。
         {
             throw new NotImplementedException();
             //var path = string.Format("{0}/{1}/upstream", RESTfulPath.TARGETS, target);
@@ -90,7 +93,9 @@ namespace Kong.AdminAPI
         /// </summary>
         /// <param name="target">{target host:port or id}</param>
         /// <returns></returns>
+#pragma warning disable CS1998 // 此异步方法缺少 "await" 运算符，将以同步方式运行。请考虑使用 "await" 运算符等待非阻止的 API 调用，或者使用 "await Task.Run(...)" 在后台线程上执行占用大量 CPU 的工作。
         public async Task<bool> DeleteByTarget(string target)
+#pragma warning restore CS1998 // 此异步方法缺少 "await" 运算符，将以同步方式运行。请考虑使用 "await" 运算符等待非阻止的 API 调用，或者使用 "await Task.Run(...)" 在后台线程上执行占用大量 CPU 的工作。
         {
             throw new NotImplementedException();
             //var path = string.Format("{0}/{1}/upstream", RESTfulPath.TARGETS, target);

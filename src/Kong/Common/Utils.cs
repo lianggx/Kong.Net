@@ -1,19 +1,17 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Kong.Common
 {
     public class Utils
     {
-        public static JsonSerializerSettings CreateJsonSetting()
+        public static JsonSerializerOptions CreateJsonSetting()
         {
-            var json_setting = new JsonSerializerSettings
-            {
-                Formatting = Formatting.Indented
-            };
-            json_setting.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
-            json_setting.Converters.Add(new DateTimeConverter());
-            json_setting.ContractResolver = new LowercaseContractResolver();
+            var json_setting = new JsonSerializerOptions();
+            json_setting.Converters.Add(new JsonStringEnumConverter());
+            json_setting.Converters.Add(new JsonConverterUnixDateTime());
+            json_setting.PropertyNamingPolicy = new LowercaseContractResolver();
 
             return json_setting;
         }

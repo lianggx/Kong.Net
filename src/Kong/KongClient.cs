@@ -1,12 +1,11 @@
 ﻿using Kong.AdminAPI;
 using Kong.Models;
-using System.Net.Http;
 
 namespace Kong
 {
     public class KongClient
     {
-        public readonly KongClientOptions options;
+        private readonly KongClientOptions options;
         public KongClient(KongClientOptions options)
         {
             this.options = options;

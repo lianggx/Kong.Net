@@ -1,62 +1,30 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using System;
+﻿using System;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Kong.Common
 {
-    public class DateTimeConverter : DateTimeConverterBase
+    public class JsonConverterUnixDateTime : JsonConverter<DateTime>
     {
-        public static DateTime Greenwich_Mean_Time = TimeZoneInfo.ConvertTime(new DateTime(1970, 1, 1), TimeZoneInfo.Local);
-        public override bool CanConvert(Type objectType)
+        private static DateTime Greenwich_Mean_Time = TimeZoneInfo.ConvertTime(new DateTime(1970, 1, 1), TimeZoneInfo.Local);
+        private const int Limit = 10000;
+        public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            return objectType == typeof(DateTime) || objectType == typeof(Nullable<DateTime>);
-        }
-
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.Value == null)
-                return null;
-
-            if (CanConvert(objectType))
+            if (reader.TokenType == JsonTokenType.Number)
             {
-                if (string.IsNullOrEmpty(reader.Value?.ToString()))
-                    return reader.Value;
-
-                if (reader.Value is string || reader.TokenType == JsonToken.Date)
-                {
-                    if (DateTime.TryParse(reader.Value.ToString(), out DateTime dt))
-                        return dt;
-                    else
-                        return reader.Value;
-                }
-                else
-                {
-                    var _val = reader.Value.ToString();
-                    var ratio = _val.Length == 10 ? 10000000 : 10000;
-                    return new DateTime(Greenwich_Mean_Time.Ticks + Convert.ToInt64(reader.Value) * ratio).ToLocalTime();
-                }
+                var unixTime = reader.GetInt64();
+                var dt = new DateTime(Greenwich_Mean_Time.Ticks + unixTime * Limit);
+                return dt;
             }
             else
-                return reader.Value;
-        }
-
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        {
-            if (value == null)
-                writer.WriteNull();
-            else
             {
-                long val = 0;
-                if (value.GetType() == typeof(DateTime))
-                {
-                    DateTime dt = Convert.ToDateTime(value);
-                    val = (dt.ToUniversalTime().Ticks - Greenwich_Mean_Time.Ticks) / 10000000;
-                }
-                else
-                    val = Convert.ToInt64(value);
-
-                writer.WriteValue(val);
+                return reader.GetDateTime();
             }
+        }
+        public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
+        {
+            var unixTime = (value - Greenwich_Mean_Time).Ticks / Limit;
+            writer.WriteNumberValue(unixTime);
         }
     }
 }

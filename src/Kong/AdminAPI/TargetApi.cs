@@ -1,7 +1,5 @@
 ﻿using Kong.Common;
 using Kong.Models;
-using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Kong.AdminAPI

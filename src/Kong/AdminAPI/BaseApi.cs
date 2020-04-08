@@ -1,11 +1,9 @@
 ﻿using Kong.Common;
 using Kong.Models;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Kong.AdminAPI
@@ -19,38 +17,31 @@ namespace Kong.AdminAPI
             this.kongOptions = kongOptions;
         }
 
-        public string CreateUri(string path)
+        public Uri CreateUri(string path)
         {
-            var uri = new Uri(kongOptions.Host + path);
-
-            return uri.AbsoluteUri;
+            return new Uri(kongOptions.Host + path);
         }
 
         public async Task<T> RequestGet<T>(string path)
         {
-            T obj = default(T);
             var uri = CreateUri(path);
-            var response = await kongOptions.HttpClient.GetAsync(uri);
+            var response = await kongOptions.HttpClient.GetAsync(uri); ;
+            var result = await response.Content.ReadAsStringAsync(); ;
 
-            var result = await response.Content.ReadAsStringAsync();
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                obj = JsonConvert.DeserializeObject<T>(result, Utils.CreateJsonSetting());
+                return JsonSerializer.Deserialize<T>(result, Utils.CreateJsonSetting());
             }
             else
             {
                 throw new HttpRequestException(response.StatusCode.ToString());
             }
-
-            return obj;
         }
 
         public async Task<bool> RequestDelete(string path)
         {
             var uri = CreateUri(path);
-            var response = await kongOptions.HttpClient.DeleteAsync(uri);
-
-            var result = await response.Content.ReadAsStringAsync();
+            var response = await kongOptions.HttpClient.DeleteAsync(uri); ;
             if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
             {
                 return true;
@@ -63,22 +54,14 @@ namespace Kong.AdminAPI
 
         public async Task<T> RequestAPI<T>(RequestMethod method, string path, object data = null)
         {
-            T obj = default(T);
             var uri = CreateUri(path);
-
-            HttpResponseMessage response = null;
+            HttpResponseMessage response;
             StringContent content = null;
 
             if (data != null)
             {
-                var jsr = JsonSerializer.Create(Utils.CreateJsonSetting());
-                using (StringWriter sw = new StringWriter())
-                {
-                    jsr.Serialize(sw, data);
-                    sw.Flush();
-                    var json = sw.ToString();
-                    content = new StringContent(json, Encoding.UTF8, MEDIA_TYPE);
-                }
+                var json = JsonSerializer.Serialize(data, Utils.CreateJsonSetting());
+                content = new StringContent(json, Encoding.UTF8, MEDIA_TYPE);
             }
 
             if (method == RequestMethod.Post)
@@ -103,14 +86,12 @@ namespace Kong.AdminAPI
             if (response.StatusCode == System.Net.HttpStatusCode.Created ||
                 response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                obj = JsonConvert.DeserializeObject<T>(result, Utils.CreateJsonSetting());
+                return JsonSerializer.Deserialize<T>(result, Utils.CreateJsonSetting());
             }
             else
             {
                 throw new HttpRequestException(result);
             }
-
-            return obj;
         }
 
         public async Task<HttpResponseMessage> RequestPost(string path, object data = null)
@@ -120,12 +101,11 @@ namespace Kong.AdminAPI
 
             if (data != null)
             {
-                var json = JsonConvert.SerializeObject(data, Utils.CreateJsonSetting());
+                var json = JsonSerializer.Serialize(data, Utils.CreateJsonSetting());
                 content = new StringContent(json, Encoding.UTF8, MEDIA_TYPE);
             }
 
-            HttpResponseMessage response = await kongOptions.HttpClient.PostAsync(uri, content);
-            return response;
+            return await kongOptions.HttpClient.PostAsync(uri, content);
         }
     }
 }

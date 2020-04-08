@@ -1,13 +1,10 @@
-﻿using Newtonsoft.Json.Serialization;
+﻿using System.Text.Json;
 
 namespace Kong.Common
 {
-    public class LowercaseContractResolver : DefaultContractResolver
+    public class LowercaseContractResolver : JsonNamingPolicy
     {
-        protected override string ResolvePropertyName(string propertyName)
-        {
-            return propertyName.ToLower();
-        }
+        public override string ConvertName(string name) => name.ToLower();
     }
 }
 
